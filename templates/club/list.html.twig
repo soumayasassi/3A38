@@ -1,0 +1,30 @@
+{# dump(formations) #}
+{% set nbmax =0 %}
+{% set nbt =0 %}
+{% for f in formations %}
+{% set nbmax= max(nbmax,f.nb_participants) %}
+    {% set nbt =nbt+ f.nb_participants %}
+{%  endfor %}
+Le nombre de formation est {{ formations |length }}
+{% for f in formations %}
+{#    {%  if  f.Description is same as("formation theorique") %} #}
+{#     {%  if  f.Description  == "formation theorique" %}#}
+   {#  {%  if  "theorique"  in f.Description %}#}
+
+    <ul>
+        <li> <b>Ref : </b>{{ f.ref }}</li>
+        <li> <b>Titre : </b>{{ f.Titre |upper }}</li>
+        <li> <b>Description : </b>{{ f.Description }}</li>
+        <li> <b>Date Début : </b>{{ f.date_debut }}</li>
+        <li> <b>Date Fin : </b>{{ f.date_fin }}</li>
+        <li> <b>Nombre de participants : </b>{{ f.nb_participants }}</li>
+        {% if f.nb_participants  == 0 %}
+            <form action="{{path('detail',{'titre':f.Titre }) }}">
+                <button> Participer</button>
+            </form>
+            <a href="{{path('detail',{'titre':f.Titre }) }}"> Participer</a>
+        {% endif %}
+    </ul>
+
+
+{% endfor %}

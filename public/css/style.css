@@ -1,0 +1,16 @@
+/*p {
+
+    text-align: right;
+}
+*/
+img {
+    border: 1px solid #ddd;
+    border-radius: 50% ;
+    padding: 5px;
+    width: 150px;
+   margin-left: 500px;
+}
+h1 { color: #ff4411; font-size: 48px; font-family: 'Signika', sans-serif; padding-bottom: 10px; }
+
+
+p { font-family: 'Inder', sans-serif; line-height: 28px; margin-bottom: 15px; color: #666; }
