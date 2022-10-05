@@ -1,0 +1,20 @@
+<h1> Liste des Classrooms</h1>
+<table border="1">
+    <tr> <th>Id</th>
+        <th> Name</th>
+        <th> Action</th>
+    </tr>
+    {%  for c in  classrooms %}
+        <tr>
+            <td>  {{ c.id }}</td>
+            <td>   {{ c.name }} </td>
+            <td> <a href="">Delete </a>
+                <a href="">Update </a>
+
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<form action="{{ path('add_classroom') }}">
+    <button>Add Classroom</button>
+</form>
