@@ -75,4 +75,31 @@ class ClassroomController extends AbstractController
 
 
     }
+   #[Route("/delete/{id}", name:'delete_classroom')]
+    public function delete($id, ManagerRegistry $doctrine)
+    {$c = $doctrine
+        ->getRepository(Classroom::class)
+        ->find($id);
+        $em = $doctrine->getManager();
+        $em->remove($c);
+        $em->flush() ;
+        return $this->redirectToRoute('read_classroom');
+    }
+
+
+    #[Route('/add2', name: 'addc2')]
+    public function  add2(ManagerRegistry $doctrine , Request $request) : Response
+    { $c = new Classroom() ;
+        if($request->isMethod('POST'))
+        { $c->setName($request->get('name'));
+            $em = $doctrine->getManager();
+            $em->persist($c);
+            $em->flush();
+            return $this->redirectToRoute('read_classroom');
+        }
+        return $this->render('classroom/add2.html.twig');
+
+
+
+    }
 }
