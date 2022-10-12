@@ -56,4 +56,23 @@ class ClassroomController extends AbstractController
 
 
     }
+
+    #[Route('/update/{id}', name: 'update_classroom')]
+    public function  update(ManagerRegistry $doctrine,$id,  Request  $request) : Response
+    { $classroom = $doctrine
+        ->getRepository(Classroom::class)
+        ->find($id);
+        $form = $this->createForm(ClassroomType::class, $classroom);
+        $form->add('update', SubmitType::class) ;
+        $form->handleRequest($request);
+        if ($form->isSubmitted())
+        { $em = $doctrine->getManager();
+            $em->flush();
+            return $this->redirectToRoute('read_classroom');
+        }
+        return $this->renderForm("classroom/update.html.twig",
+            ["f"=>$form]) ;
+
+
+    }
 }
