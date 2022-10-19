@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Classroom;
+use App\Entity\Club;
 use App\Entity\Student;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -16,13 +17,22 @@ class StudentType extends AbstractType
         $builder
             ->add('nsc')
             ->add('email')
-            ->add('classroom', EntityType::class, [
+            ->add('class', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Classroom::class,
                 // uses the User.username property as the visible option string
                 'choice_label' => 'name',
                 // used to render a select box, check boxes or radios
                 'multiple' => false,
+                'expanded' => false,
+            ])
+            ->add('club', EntityType::class, [
+                // looks for choices from this entity
+                'class' => Club::class,
+                // uses the User.username property as the visible option string
+                'choice_label' => 'ref',
+                // used to render a select box, check boxes or radios
+                'multiple' => true,
                 'expanded' => false,
             ])
         ;

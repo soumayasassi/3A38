@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Form\StudentType;
+use App\Entity\Student ;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\StudentRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StudentController extends AbstractController
@@ -35,7 +39,5 @@ public function index() : Response
         }
         return $this->renderForm("student/add.html.twig",
             ["f"=>$form]) ;
-
-
     }
 }
