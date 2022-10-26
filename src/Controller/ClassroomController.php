@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Classroom;
 use App\Form\ClassroomType;
 use App\Repository\ClassroomRepository;
+use App\Repository\StudentRepository;
 use  Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -99,7 +100,16 @@ class ClassroomController extends AbstractController
         }
         return $this->render('classroom/add2.html.twig');
 
-
-
     }
+    //Question 2 DQL
+    #[Route('/findmoyenne/{id}', name: 'find_moyenne')]
+    public function  findMoyenne( ClassroomRepository $repo ,$id   ) : Response
+    {
+        $classroom =$repo->find($id);
+        $moyenne= $repo->findStudentByClassAVG($classroom->getName());
+        return $this->render('classroom/find.html.twig', [
+            "classroom" => $classroom,
+            "moyenne"=>$moyenne]);
+    }
+
 }

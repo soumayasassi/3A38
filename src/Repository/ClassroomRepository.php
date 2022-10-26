@@ -63,4 +63,15 @@ class ClassroomRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    //Question 2 -DQL
+    public function findStudentByClassAVG($name){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT AVG(s.moyenne) as moyenne FROM APP\Entity\Student s JOIN s.class c WHERE c.name=:name ")
+            ->setParameter('name',$name);
+        return $query->getSingleScalarResult();
+    }
+
+
 }

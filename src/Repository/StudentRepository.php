@@ -54,13 +54,60 @@ class StudentRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Student
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+ public function findOneByNSC($value): ?Student
+    {
+       return $this->createQueryBuilder('s')
+           ->andWhere('s.nsc = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+      ;
+  }
+    public function TriparEmail(): array
+    {return $this->createQueryBuilder('s')
+        ->orderBy('s.email', 'ASC')
+        ->getQuery()
+        ->getResult() ;
+    }
+
+    public function findEtat($value): array
+    {return $this->createQueryBuilder('s')
+        ->where('s.enabled = :val')
+         ->setParameter('val', $value)
+        ->getQuery()
+        ->getResult() ;
+    }
+    public function listStudentsByClasse($id): array
+    {
+        return $this->createQueryBuilder('s')
+            ->join('s.class','c')
+            ->addSelect('c')
+            ->Where('c.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * Question 3 DQL
+     */
+    public function findStudentByAVG($min,$max){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT s FROM APP\Entity\Student s WHERE s.moyenne BETWEEN :min AND :max")
+            ->setParameter('min',$min)
+            ->setParameter('max',$max);
+        return $query->getResult();
+    }
+
+        //Question 4 -DQL
+        public function findRedoublants($id){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT s, c FROM App\Entity\Student s INNER JOIN s.class c WHERE s.moyenne <=8 AND c.id = :id")
+           ->setParameter('id',$id) ;
+        return $query->getResult();
+    }
+
 }

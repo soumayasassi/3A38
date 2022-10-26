@@ -27,6 +27,13 @@ class Student
     #[ORM\InverseJoinColumn(name: "club_id", referencedColumnName: "ref")]
     private Collection $club;
 
+    #[ORM\Column]
+    private ?bool $enabled = null;
+
+    #[ORM\Column]
+    private ?float $moyenne = null;
+
+
     public function __construct()
     {
         $this->club = new ArrayCollection();
@@ -94,6 +101,42 @@ class Student
     public function removeClub(Club $club): self
     {
         $this->club->removeElement($club);
+
+        return $this;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getMoyenne(): ?float
+    {
+        return $this->moyenne;
+    }
+
+    public function setMoyenne(float $moyenne): self
+    {
+        $this->moyenne = $moyenne;
+
+        return $this;
+    }
+
+    public function getDeleteattribut(): ?int
+    {
+        return $this->deleteattribut;
+    }
+
+    public function setDeleteattribut(int $deleteattribut): self
+    {
+        $this->deleteattribut = $deleteattribut;
 
         return $this;
     }

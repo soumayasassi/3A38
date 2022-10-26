@@ -63,4 +63,15 @@ class ClubRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+
+    public function lastThree()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult() ;
+    }
 }

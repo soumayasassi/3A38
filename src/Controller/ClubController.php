@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ClassroomRepository;
+use App\Repository\ClubRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,5 +49,12 @@ class ClubController extends AbstractController
     public function details($titre)
     {
         return $this->render("club/detail.html.twig", ["titre"=>$titre]);
+    }
+///Question 4 Atlier 5
+    #[Route('/findclub', name: 'find_club')]
+    public function find(ClubRepository $rep): Response
+    {
+        $clubs = $rep->lastThree();
+        return $this->render('club/find.html.twig', compact('clubs')) ;
     }
 }

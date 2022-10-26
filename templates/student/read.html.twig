@@ -1,5 +1,25 @@
+<form method="post" action="{{ path('find_avg') }}">
+    <label> Min Moyenne</label>
+    <input type="text" id="minMoy" name="minMoy"/>
+    <label> Max Moyenne</label>
+    <input type="text" id="maxMoy" name="maxMoy"/>
+<input type="submit" value="search"/>
+</form>
+
+<table border="1">
+    <tr>
+        <td>Nsc</td>
+        <td>Email </td>
+        <td>Moyenne</td>
+        <td> Class </td>
+    </tr>
 {% for s in students %}
-NSC : {{ s.nsc }} <br>
- EMAIl :   {{ s.email }} <br>
-   ClASS : {{ s.class.name}} <br>
+
+    <tr>
+        <td> {{ s.nsc }}</td>
+        <td>{{ s.email }}</td>
+        <td>{{ s.moyenne}}</td>
+        <td> {{ s.class.name}} </td>
+    </tr>
 {% endfor %}
+</table>
