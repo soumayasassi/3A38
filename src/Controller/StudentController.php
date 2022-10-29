@@ -7,6 +7,7 @@ use App\Form\RechercheType;
 use App\Form\SearchByMoyenneType;
 use App\Form\StudentType;
 use App\Entity\Student ;
+use App\Repository\ClassroomRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -50,8 +51,8 @@ public function index() : Response
     public function  find(StudentRepository $repo) : Response
     { $students = $repo->TriparEmail();
         $students2 = $repo->findEtat(true);
-        $id=1 ;
-        $students3 = $repo->listStudentsByClasse($id);
+$id=4 ;
+        $students3 = $repo->listStudentsByClasse(4);
         return $this->render("student/find.html.twig",
         ["students"=>$students, "s"=>$students2 ,
             "stu"=>$students3, "id"=>$id]);
@@ -73,6 +74,15 @@ public function index() : Response
         return $this->renderForm("student/list.html.twig",
             ["f"=>$form,"students"=>$students]);
 
+    }
+    //Question 2 DQL
+    #[Route('/moyenne/{id}', name: 'moyenne_class')]
+    public function MoyenneClasse(StudentRepository  $repo ,ClassroomRepository  $repository,$id ): Response
+    {
+        $class = $repository->find($id) ;
+        $moyenne = $repo->findByMoyenne($id) ;
+        return $this->render("student/moyenne.html.twig",["moyenne"=>$moyenne,
+            "class"=>$class]);
     }
     //Question 3 DQL
     #[Route('/findByAVG', name: 'find_avg')]

@@ -63,13 +63,16 @@ class StudentRepository extends ServiceEntityRepository
            ->getOneOrNullResult()
       ;
   }
+  //Question 1 QB
     public function TriparEmail(): array
     {return $this->createQueryBuilder('s')
         ->orderBy('s.email', 'ASC')
         ->getQuery()
         ->getResult() ;
     }
-
+/*
+ * Question 5 QB
+ */
     public function findEtat($value): array
     {return $this->createQueryBuilder('s')
         ->where('s.enabled = :val')
@@ -88,14 +91,24 @@ class StudentRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
-
+/*
+ * Question 2 DQL
+ */
+    public function findByMoyenne($id){
+        $entityManager=$this->getEntityManager();
+        $query=$entityManager
+            ->createQuery("SELECT avg(s.moyenne) FROM App\Entity\Student  s JOIN s.class  c where c.id =:id")
+            ->setParameter('id',$id) ;
+        return $query->getSingleResult();
+    }
     /**
      * Question 3 DQL
      */
     public function findStudentByAVG($min,$max){
         $entityManager=$this->getEntityManager();
         $query=$entityManager
-            ->createQuery("SELECT s FROM APP\Entity\Student s WHERE s.moyenne BETWEEN :min AND :max")
+            ->createQuery("SELECT s FROM APP\Entity\Student 
+            s WHERE s.moyenne BETWEEN :min AND :max")
             ->setParameter('min',$min)
             ->setParameter('max',$max);
         return $query->getResult();
@@ -105,7 +118,8 @@ class StudentRepository extends ServiceEntityRepository
         public function findRedoublants($id){
         $entityManager=$this->getEntityManager();
         $query=$entityManager
-            ->createQuery("SELECT s, c FROM App\Entity\Student s INNER JOIN s.class c WHERE s.moyenne <=8 AND c.id = :id")
+            ->createQuery("SELECT s, c FROM App\Entity\Student 
+            s INNER JOIN s.class c WHERE s.moyenne <=8 AND c.id = :id")
            ->setParameter('id',$id) ;
         return $query->getResult();
     }

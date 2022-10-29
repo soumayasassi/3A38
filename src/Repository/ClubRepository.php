@@ -65,7 +65,9 @@ class ClubRepository extends ServiceEntityRepository
 //    }
 
 
-
+/*
+ * Question 4 QB
+ */
     public function lastThree()
     {
         return $this->createQueryBuilder('c')
